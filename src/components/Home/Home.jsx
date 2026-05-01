@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import {
     RollerCoasterGeometry,
@@ -12,6 +12,20 @@ import styles from './Home.module.css';
 const Home = () => {
     const canvasRef = useRef(null);
     const rendererRef = useRef(null);
+    const [typedText, setTypedText] = useState('');
+    const fullText = "I’m a Software Developer who loves creating meaningful products that make an impact. I enjoy working across the full stack, learning new technologies, and continuously improving my craft.";
+
+    useEffect(() => {
+        let i = 0;
+        const timer = setInterval(() => {
+            setTypedText(fullText.slice(0, i));
+            i++;
+            if (i > fullText.length) {
+                clearInterval(timer);
+            }
+        }, 40);
+        return () => clearInterval(timer);
+    }, []);
 
     useEffect(() => {
         const container = canvasRef.current;
@@ -235,11 +249,26 @@ const Home = () => {
                 <div className={styles.logo}>:)</div>
 
                 <div className={styles.navTextContainer}>
-                    <div className={styles.navItem}>ABOUT ME</div>
+                    <div className={styles.navItem}>
+                        <div className={styles.navItemLink}>
+                            <span className={styles.navItemLinkBottom}>ABOUT ME</span>
+                            <span className={styles.navItemLinkTop}>ABOUT ME</span>
+                        </div>
+                    </div>
                     <div className={styles.navSeparator}></div>
-                    <div className={styles.navItem}>WORKS</div>
+                    <div className={styles.navItem}>
+                        <div className={styles.navItemLink}>
+                            <span className={styles.navItemLinkBottom}>WORKS</span>
+                            <span className={styles.navItemLinkTop}>WORKS</span>
+                        </div>
+                    </div>
                     <div className={styles.navSeparator}></div>
-                    <div className={styles.navItem}>SKILLS</div>
+                    <div className={styles.navItem}>
+                        <div className={styles.navItemLink}>
+                            <span className={styles.navItemLinkBottom}>SKILLS</span>
+                            <span className={styles.navItemLinkTop}>SKILLS</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div className={styles.audioIcon}>
@@ -253,6 +282,22 @@ const Home = () => {
                 {/* Three.js canvas mounts here */}
                 <div ref={canvasRef} className={styles.canvasMount}></div>
 
+                {/* background text effect */}
+                <div className={styles.backgroundTextOverlay}>
+                    <div className={styles.marqueeContainer} style={{ top: '15%', transform: 'rotate(-3deg)' }}>
+                        <div className={styles.marqueeLeft}>
+                            <span className={styles.marqueeWord}>{"CODE • BUILD • DEVELOP • DEPLOY • DEBUG • COMPILE • SCRIPT • OPTIMIZE • SHIP • ".repeat(4)}</span>
+                            <span className={styles.marqueeWord}>{"CODE • BUILD • DEVELOP • DEPLOY • DEBUG • COMPILE • SCRIPT • OPTIMIZE • SHIP • ".repeat(4)}</span>
+                        </div>
+                    </div>
+                    <div className={styles.marqueeContainer} style={{ top: '70%', transform: 'rotate(2deg)' }}>
+                        <div className={styles.marqueeRight}>
+                            <span className={styles.marqueeWord}>{"CODE • BUILD • DEVELOP • DEPLOY • DEBUG • COMPILE • SCRIPT • OPTIMIZE • SHIP • ".repeat(4)}</span>
+                            <span className={styles.marqueeWord}>{"CODE • BUILD • DEVELOP • DEPLOY • DEBUG • COMPILE • SCRIPT • OPTIMIZE • SHIP • ".repeat(4)}</span>
+                        </div>
+                    </div>
+                </div>
+
                 {/* UI overlay on top */}
                 <div className={styles.topRightWidget}>
                    <a href="https://www.youtube.com/channel/UC4_tXw6tK92WbS3g8c8v_2g"className={styles.link} target="_blank"><img src="/Links/linkedin.svg" alt="linkedin" /></a>
@@ -261,31 +306,49 @@ const Home = () => {
                    <a href="https://www.youtube.com/channel/UC4_tXw6tK92WbS3g8c8v_2g"className={styles.link} target="_blank"><img src="/Links/mail.svg" alt="mail" /></a>
                 </div>
 
+                <div className={styles.heroText}>
+                    <h1 className={styles.heroName}>Sreehari Dileep</h1>
+                    <div className={styles.signboardContainer}>
+                        <div className={styles.ropes}>
+                            <div className={styles.rope}></div>
+                            <div className={styles.rope}></div>
+                        </div>
+                        <div className={styles.signboard}>
+                            <p className={styles.heroRole}>Software Developer</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div className={styles.bottomLeftWidget}>
                     <div className={styles.folderItem}>
                         <div className={styles.folderIcon}>
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            <svg className={styles.folderIconSvg} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                         </div>
                         <span className={styles.folderText}>Gallery</span>
                     </div>
                     <div className={styles.folderItem}>
                         <div className={styles.folderIcon}>
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+                            <svg className={styles.folderIconSvg} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
                         </div>
                         <span className={styles.folderText}>Radio</span>
                     </div>
                     <div className={styles.folderItem}>
                         <div className={styles.folderIcon}>
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            <svg className={styles.folderIconSvg} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                         </div>
                         <span className={styles.folderText}>Effect</span>
                     </div>
                     <div className={styles.folderItem}>
                         <div className={styles.folderIcon}>
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            <svg className={styles.folderIconSvg} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                         </div>
                         <span className={styles.folderText}>Resume</span>
                     </div>
+                </div>
+                <div className={styles.bottomRightWidget}>
+                    <p className={styles.cursor}>
+                        {typedText}
+                    </p>
                 </div>
             </div>
         </div>

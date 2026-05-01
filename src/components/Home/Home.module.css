@@ -1,6 +1,7 @@
 .appWrapper {
     display: flex;
     height: 100vh;
+    height: 100dvh;
     width: 100vw;
     background-color: #ffffff;
     overflow: hidden;
@@ -49,13 +50,81 @@
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: #1a1a1a;
     cursor: pointer;
-    transition: color 0.2s ease;
 }
 
-.navItem:hover {
-    color: #666;
+/* Link Vertical Slice Effect */
+.navItemLink {
+  position: relative;
+  line-height: 1em;
+}
+
+.navItemLinkTop {
+  position: absolute;
+  color: #1a1a1a;
+  top: 0;
+  left: 0;
+  clip-path: polygon(0% 0%, 50.5% 0%, 50.5% 100%, 0% 100%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s, color 0.5s ease 0.22s;
+}
+
+.navItemLinkTop::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 48%; 
+  width: 0.2em;
+  height: 100%;
+  background: #fc3d46;
+  transform: rotateZ(1deg) scaleY(0);
+  transform-origin: top center;
+  transition: transform 0.2s ease 0.22s;
+}
+
+.navItemLinkBottom {
+  clip-path: polygon(49.5% 0%, 100% 0%, 100% 100%, 49.5% 100%);
+  color: #1a1a1a;
+  transition: color 0.5s ease 0.22s, background-position 0.2s ease 0.22s;
+  text-decoration: none;
+  background-size: 8% 200%;
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to bottom, #fc3d46 50%, transparent 50%);
+}
+
+.navItemLinkBottom::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 52%;
+  width: 0.2em;
+  height: 100%;
+  background: #fc3d46;
+  transform: rotateZ(-1deg) scaleY(0);
+  transform-origin: top center;
+  transition: transform 0.2s ease 0.22s;
+}
+
+.navItemLink:hover .navItemLinkTop {
+  color: #fc3d46;
+  transform: translateX(0.15em) translateY(-0.1em) rotateZ(-2deg);
+  transition: transform 0.5s cubic-bezier(.12,.8,.57,1.00) 0.42s, color 0.5s ease 0.22s;
+}
+
+.navItemLink:hover .navItemLinkBottom {
+  color: #fc3d46;
+  background-position: left 100%;
+  transition: color 0.5s ease 0.2s, background-position 0.2s ease;
+}
+
+.navItemLink:hover .navItemLinkTop::after {
+  transform-origin: bottom center;
+  transform: rotateZ(1deg) scaleY(1);
+}
+
+.navItemLink:hover .navItemLinkBottom::after {
+  transform-origin: bottom center;
+  transform: rotateZ(-1deg) scaleY(1);
 }
 
 .navSeparator {
@@ -123,7 +192,6 @@
 
 .topRightWidget {
     position: absolute;
-    top: 0;
     right: 2.5em;
     background: #ffffff;
     backdrop-filter: blur(10px);
@@ -135,6 +203,108 @@
     flex-direction: row;
     align-items: center;
     gap: 0.7em;
+}
+
+.heroText {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 800px;
+}
+
+.heroName {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.1;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    font-style: italic;
+}
+
+.signboardContainer {
+    position: relative;
+        margin-top: 0.5rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: auto;
+    animation: swingFrontBack 1s ease-in-out infinite alternate;
+    transform-origin: top center;
+    transform-style: preserve-3d;
+}
+
+@keyframes swingFrontBack {
+    0% { transform: rotateX(-20deg); }
+    100% { transform: rotateX(20deg); }
+}
+
+.ropes {
+    position: absolute;
+    top: -1.2rem;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 calc(1.5rem + 1px);
+    z-index: -1;
+    transform: translateZ(-1px);
+}
+
+.rope {
+    width: 0.3em;
+    height: 1.9rem;
+    background: repeating-linear-gradient(-45deg, #e62629, #e62629 4px, #f54c4d 4px, #f54c4d 8px);
+    border-radius: 0.2em;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.signboard {
+    background-color: #fc3d46;
+    padding: 0.5em 2.5em;
+    border-radius: 0.3em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.signboard::before,
+.signboard::after {
+    content: '';
+    position: absolute;
+    top: 0.4rem;
+    width: 0.4em;
+    height: 0.4em;
+    background-color: #f0f0ff;
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.signboard::before {
+    left: 1.5rem;
+}
+
+.signboard::after {
+    right: 1.5rem;
+}
+
+.heroRole {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .bottomLeftWidget {
@@ -173,6 +343,11 @@
     transition: box-shadow 0.2s ease;
 }
 
+.folderIconSvg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
 .folderItem:hover .folderIcon {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
@@ -207,4 +382,231 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.bottomRightWidget {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    max-width: 25em;
+    background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(8px);
+    padding: 1em;
+    border-radius: 1em 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cursor {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.cursor::after {
+    content: '';
+    display: inline-block;
+    height: 1.1em;
+    background-color: transparent;
+    border-right: 0.2em solid rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    margin-left: 0.3em;
+    animation: blinkingCursor 500ms steps(50) infinite normal;
+}
+
+@keyframes blinkingCursor {
+  from { border-right-color: rgba(255, 255, 255, 0.75); }
+  to { border-right-color: transparent; }
+}
+
+/* Background Marquee Text Overlay */
+.backgroundTextOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.marqueeContainer {
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    white-space: nowrap;
+    opacity: 0.8;
+}
+
+.marqueeLeft {
+    display: inline-block;
+    animation: scrollLeft 120s linear infinite;
+}
+
+.marqueeRight {
+    display: inline-block;
+    animation: scrollRight 120s linear infinite;
+}
+
+.marqueeWord {
+    font-size: 5rem;
+    font-weight: 900;
+    color: #211d1d6b;
+    -webkit-text-stroke: 0.025em rgb(26 26 26);
+    text-transform: uppercase;
+    padding-right: 0.4em;
+    letter-spacing: 0.05em;
+}
+
+@keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* media queries */
+
+@media (max-width: 499.5px) {
+    html { 
+        font-size: 12px;
+    }
+
+    .marqueeWord {
+        font-size: 4rem;
+    }
+
+    .heroName {
+        font-size: 3rem;
+    }
+
+    .topRightWidget { 
+        padding: 0.4em 2em;
+        gap: 1.4em;
+    }
+
+}
+
+@media (min-width: 500px) and (max-width: 767.5px) {
+    html { 
+        font-size: 15px;
+    }
+
+    .marqueeWord {
+        font-size: 4rem;
+    }
+
+}
+    
+@media (min-width: 768px) and (max-width: 1024px) {
+    html {
+        font-size: 12px;
+    }
+
+    .navItem {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1900px) {
+ html {
+    font-size: 19px;
+ }
+}
+
+@media (min-width: 1900px) and (max-width: 2200px) {
+ html {
+    font-size: 22px;
+ }
+}
+ 
+@media (min-width: 2200px) and (max-width: 2500px) {
+    html {
+        font-size: 25px;
+    }
+
+}
+
+@media (min-width: 2500px) and (max-width: 2800px) {
+    html {
+        font-size: 28px;
+    }
+    
+}
+
+@media (max-width: 767.5px) {
+    .appWrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        order: 2;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        padding: 1em 1.5em;
+    }
+
+    .mainContent {
+        order: 1;
+        margin: 0.5em 0.5em 0 0.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        padding-bottom: 1em;
+    }
+
+    .navTextContainer {
+        flex-direction: row;
+        gap: 1em;
+    }
+
+    .navItem {
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+
+    .topRightWidget {
+        top: 0;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+    .bottomLeftWidget {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: translateY(1em);
+        z-index: 11;
+        gap: 0.5em;
+    }
+
+    .folderIcon {
+        display: none;
+    }
+
+    .bottomRightWidget {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        width: 90%;
+        max-width: 25em;
+        border-radius: 1em;
+        padding-top: 1.5em;
+    }
+
+    .heroText {
+        width: 100%;
+                margin-top: 2em;
+    }
+
 }
