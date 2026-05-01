@@ -1,0 +1,285 @@
+.aboutMeContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+    background: rgba(240, 240, 255, 0.85); 
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(2em);
+    padding: 3rem 4rem 3rem 2rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+    margin: 0 auto;
+    padding-right: 3em; 
+}
+
+.card {
+    position: relative;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: radial-gradient(circle at bottom left,transparent 25%,#2563eb 25.5%, #2563eb 36%, transparent 37%, transparent 100%),radial-gradient(circle at top right,transparent 34%,#2563eb 34.5%, #2563eb 45.5%, transparent 46%, transparent 100%);
+    background-size: 3em 3em;
+    background-color: #eff6ff;
+    opacity: 0.6;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(2px);
+}
+
+.card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+    font-size: 1.75rem;
+        font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    position: relative;
+}
+
+.sectionTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -0.2em;
+    left: 0;
+    width: 2em;
+    height: 0.2em;
+    background-color: #fc3d46;
+    border-radius: 0.1em;
+}
+
+.imageCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding: 3rem 2rem;
+}
+
+.imageCard::after {
+    display: none;
+}
+
+.imageContainer {
+    width: 15rem;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 0.35rem solid #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.imageContainer:hover .profileImage {
+    transform: scale(1.05);
+}
+
+.descriptionCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.descriptionText {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4a4a4a;
+    margin: 0;
+}
+
+.educationCard {
+    grid-column: 1 / -1;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.4rem;
+    top: 0.5rem;
+    bottom: 0;
+    width: 0.2rem;
+    background-color: #fc3d46;
+    border-radius: 0.1rem;
+    opacity: 0.3;
+}
+
+.timelineItem {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.timelineItem:last-child {
+    margin-bottom: 0;
+}
+
+.timelineDot {
+    position: absolute;
+    left: -2rem;
+    top: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: #fc3d46;
+    border-radius: 50%;
+    border: 0.2rem solid #ffffff;
+    box-shadow: 0 0 0 0.1rem rgba(252, 61, 70, 0.3);
+}
+
+.timelineTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 0.25rem 0;
+}
+
+.timelineSubtitle {
+    font-size: 0.95rem;
+    color: #6a6a6a;
+    margin: 0;
+    font-style: italic;
+}
+
+.animationCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 25rem;
+    margin: 4rem -4rem -3rem -2rem;
+    padding: 2rem 0;
+    overflow: hidden;
+}
+
+.box {
+    transform-style: preserve-3d;
+    animation: rotateAnimate 7s ease-in-out infinite alternate;
+    position: relative;
+    width: 0;
+    height: 0;
+}
+
+.box span {
+       background: black;
+    text-transform: uppercase;
+    line-height: 0.76em;
+    position: absolute;
+    color: #fff;
+    font-size: 3.5rem;
+    white-space: nowrap;
+    font-weight: bold;
+    padding: 0 0.18em;
+    transform-style: preserve-3d;
+    text-shadow: 0 0.18em 0.27em rgba(0,0,0,0.3);
+    transform: translate(-50%, -50%) rotateX(calc(var(--i) * 22.5deg)) translateZ(1.95em);
+}
+
+.box span i {
+    font-style: initial;
+}
+
+.box span i:nth-child(1) {
+    color: #5c5fc4;
+}
+
+.box span i:nth-child(2) {
+    color: #c4c15c;
+}
+
+@keyframes rotateAnimate {
+    0% {
+        transform: perspective(30rem) rotateX(0deg) rotate(5deg);
+    }
+    100% {
+        transform: perspective(3rem) rotateX(360deg) rotate(5deg);
+    }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .contentGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .descriptionCard {
+        grid-row: 2;
+    }
+}
+
+@media (max-width: 767.5px) {
+    .aboutMeContainer {
+        padding: 2rem 1rem;
+    }
+    
+    .contentGrid {
+        padding-right: 0;
+    }
+
+    .card {
+        padding: 1.4rem;
+    }
+
+    .animationCard {
+        margin: 2rem -1rem -2rem -1rem;
+    }
+
+    .box span {
+        font-size: 2rem;
+    }
+}

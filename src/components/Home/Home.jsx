@@ -8,11 +8,13 @@ import {
     SkyGeometry
 } from 'three/addons/misc/RollerCoaster.js';
 import styles from './Home.module.css';
+import AboutMe from '../AboutMe/AboutMe';
 
 const Home = () => {
     const canvasRef = useRef(null);
     const rendererRef = useRef(null);
     const [typedText, setTypedText] = useState('');
+    const [isSidebarSlid, setIsSidebarSlid] = useState(false);
     const fullText = "I’m a Software Developer who loves creating meaningful products that make an impact. I enjoy working across the full stack, learning new technologies, and continuously improving my craft.";
 
     useEffect(() => {
@@ -245,11 +247,12 @@ const Home = () => {
 
     return (
         <div className={styles.appWrapper}>
-            <div className={styles.sidebar}>
+            <div className={`${styles.leftPattern} ${isSidebarSlid ? styles.leftPatternVisible : ''}`}></div>
+            <div className={`${styles.sidebar} ${isSidebarSlid ? styles.sidebarSlid : ''}`}>
                 <div className={styles.logo}>:)</div>
 
                 <div className={styles.navTextContainer}>
-                    <div className={styles.navItem}>
+                    <div className={styles.navItem} onClick={() => setIsSidebarSlid(!isSidebarSlid)}>
                         <div className={styles.navItemLink}>
                             <span className={styles.navItemLinkBottom}>ABOUT ME</span>
                             <span className={styles.navItemLinkTop}>ABOUT ME</span>
@@ -282,8 +285,11 @@ const Home = () => {
                 {/* Three.js canvas mounts here */}
                 <div ref={canvasRef} className={styles.canvasMount}></div>
 
+                {/* About Me overlay */}
+                <AboutMe isVisible={isSidebarSlid} />
+
                 {/* background text effect */}
-                <div className={styles.backgroundTextOverlay}>
+                <div className={`${styles.backgroundTextOverlay} ${isSidebarSlid ? styles.hiddenWidget : ''}`}>
                     <div className={styles.marqueeContainer} style={{ top: '15%', transform: 'rotate(-3deg)' }}>
                         <div className={styles.marqueeLeft}>
                             <span className={styles.marqueeWord}>{"CODE • BUILD • DEVELOP • DEPLOY • DEBUG • COMPILE • SCRIPT • OPTIMIZE • SHIP • ".repeat(4)}</span>
@@ -299,14 +305,14 @@ const Home = () => {
                 </div>
 
                 {/* UI overlay on top */}
-                <div className={styles.topRightWidget}>
+                <div className={`${styles.topRightWidget} ${isSidebarSlid ? styles.hiddenWidget : ''}`}>
                    <a href="https://www.youtube.com/channel/UC4_tXw6tK92WbS3g8c8v_2g"className={styles.link} target="_blank"><img src="/Links/linkedin.svg" alt="linkedin" /></a>
                    <a href="https://www.youtube.com/channel/UC4_tXw6tK92WbS3g8c8v_2g"className={styles.link} target="_blank"><img src="/Links/github.svg" alt="github" /></a>
                    <a href="https://www.youtube.com/channel/UC4_tXw6tK92WbS3g8c8v_2g"className={styles.link} target="_blank"><img src="/Links/instagram.svg" alt="instagram" /></a>
                    <a href="https://www.youtube.com/channel/UC4_tXw6tK92WbS3g8c8v_2g"className={styles.link} target="_blank"><img src="/Links/mail.svg" alt="mail" /></a>
                 </div>
 
-                <div className={styles.heroText}>
+                <div className={`${styles.heroText} ${isSidebarSlid ? styles.hiddenWidget : ''}`}>
                     <h1 className={styles.heroName}>Sreehari Dileep</h1>
                     <div className={styles.signboardContainer}>
                         <div className={styles.ropes}>
@@ -319,7 +325,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className={styles.bottomLeftWidget}>
+                <div className={`${styles.bottomLeftWidget} ${isSidebarSlid ? styles.hiddenWidget : ''}`}>
                     <div className={styles.folderItem}>
                         <div className={styles.folderIcon}>
                             <svg className={styles.folderIconSvg} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
@@ -345,7 +351,7 @@ const Home = () => {
                         <span className={styles.folderText}>Resume</span>
                     </div>
                 </div>
-                <div className={styles.bottomRightWidget}>
+                <div className={`${styles.bottomRightWidget} ${isSidebarSlid ? styles.hiddenWidget : ''}`}>
                     <p className={styles.cursor}>
                         {typedText}
                     </p>
